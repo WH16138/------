@@ -1,4 +1,4 @@
-import sys, math
+import sys
 n = int(input())
 arr = sorted([tuple(map(int, sys.stdin.readline().split())) for _ in range(n)])
 
