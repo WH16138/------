@@ -20,12 +20,13 @@ int cmpy(const void* a,const void* b){
 }
 int ClosestPair(struct point* p,int n);
 
+struct point q[100000];
 int main()
 {
     int n;
     scanf("%d",&n);
 
-    struct point* p = (struct point*)malloc(n*sizeof(struct point));
+    struct point p[100000];
     for(int i=0;i<n;i++)
         scanf("%d %d",&p[i].x,&p[i].y);
     qsort(p,n,sizeof(struct point),cmpx);
@@ -52,8 +53,6 @@ int ClosestPair(struct point* p,int n)
 
     int mid = n/2;
     int mindist = min(ClosestPair(p,mid),ClosestPair(p+mid,n-mid));
-    
-    struct point* q = (struct point*)malloc((n)*sizeof(struct point));
     int count = 0;
     for (int i=0;i<n;i++){
         if ((p[i].x-p[mid].x)*(p[i].x-p[mid].x) < mindist){
