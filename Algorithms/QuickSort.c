@@ -2,18 +2,43 @@
 #include <string.h>
 #include <stdlib.h>
 
-void quickSort(char** arr, int size)
+int partition(char **arr, int left,int right)
 {
-    for (int i=0; i<size; i++)
+    char *pivot, *temp;
+    int low, high;
+
+    pivot = arr[left];
+    low = left+1;
+    high = right;
+    while (low<=high)
     {
-        char *cur = arr[i];
-        int j = i-1;
-        while (j >= 0 && strcmp(arr[j], cur) > 0)
+        while (low<=high && strcmp(arr[low], pivot) < 0)
+            low++;
+        while (low<=high && strcmp(arr[high], pivot) > 0)
+            high--;
+        if (low<=high)
         {
-            arr[j+1] = arr[j];
-            j--;
+            temp = arr[low];
+            arr[low] = arr[high];
+            arr[high] = temp;
+            low++;
+            high--;
         }
-        arr[j+1] = cur;
+    }
+    temp = pivot;
+    arr[left] = arr[high];
+    arr[high] = temp;
+
+    return high;
+}
+
+void quickSort(char** arr, int left, int right)
+{
+    if (left<right)
+    {
+        int pivot_index = partition(arr, left, right);
+        quickSort(arr, left, pivot_index-1);
+        quickSort(arr, pivot_index+1, right);
     }
 }
 
@@ -37,7 +62,7 @@ int main()
     }
     fclose(file);
 
-    quickSort(names_ptr, count);
+    quickSort(names_ptr, 0, count-1);
     
     printf("Sorted names:\n");
     for (int i=0; i<count; i++)

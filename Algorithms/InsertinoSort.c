@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-void quickSort(char** arr, int size)
+void insertionSort(char** arr, int size)
 {
     for (int i=0; i<size; i++)
     {
@@ -37,7 +37,7 @@ int main()
     }
     fclose(file);
 
-    quickSort(names_ptr, count);
+    insertionSort(names_ptr, count);
     
     printf("Sorted names:\n");
     for (int i=0; i<count; i++)
